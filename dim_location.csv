@@ -1,0 +1,5 @@
+location_id,city,state,region,population,population_density,baseline_aqi
+1,Delhi,Delhi,North,32900000,11320,210
+2,Mumbai,Maharashtra,West,20700000,20700,140
+3,Bengaluru,Karnataka,South,13200000,4378,95
+4,Hyderabad,Telangana,South,10500000,18480,120
