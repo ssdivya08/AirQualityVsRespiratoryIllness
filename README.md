@@ -87,103 +87,120 @@ The two datasets are connected using the common **`location_id`** column.
 ```python
 import pandas as pd
 import matplotlib.pyplot as plt
-Data Processing
+```
+
+---
+
+## Data Processing
 
 The project follows these main steps:
 
-Load the datasets.
-Inspect the data.
-Check missing values.
-Check duplicate records.
-Check data types.
-Convert the date column into the required format.
-Merge the two datasets using location_id.
-Extract month information for monthly analysis.
-Perform the required calculations.
-Create visualizations.
-Interpret the results.
-Prepare stakeholder insights.
-Analysis Performed
+1. Load the datasets.
+2. Inspect the data.
+3. Check missing values.
+4. Check duplicate records.
+5. Check data types.
+6. Convert the date column into the required format.
+7. Merge the two datasets using `location_id`.
+8. Extract month information for monthly analysis.
+9. Perform the required calculations.
+10. Create visualizations.
+11. Interpret the results.
+12. Prepare stakeholder insights.
+
+---
+
+## Analysis Performed
 
 The project contains 25 analytical questions covering the following areas:
 
-Air Quality Analysis
-Average AQI by city
-Average AQI by region
-Highest AQI city
-Lowest AQI city
-Monthly AQI
-Most common AQI category
-Average AQI by AQI category
-Respiratory Health Analysis
-Respiratory ED visits by city
-Hospital admissions by city
-Outpatient visits by city
-Monthly respiratory ED visits
-Monthly hospital admissions
-City with the highest average respiratory ED visits
-AQI and Respiratory Health
-AQI vs respiratory ED visits
-AQI vs hospital admissions
-AQI vs outpatient visits
-AQI category vs respiratory ED visits
-AQI category vs hospital admissions
-Pollutant Analysis
-PM2.5 by city
-PM10 by city
-PM2.5 vs respiratory ED visits
-PM10 vs respiratory hospital admissions
-Additional Analysis
-AQI exceedance vs respiratory ED visits
-Population density vs AQI
-AQI and respiratory ED visits over time
-Visualizations
+### Air Quality Analysis
+- Average AQI by city
+- Average AQI by region
+- Highest AQI city
+- Lowest AQI city
+- Monthly AQI
+- Most common AQI category
+- Average AQI by AQI category
+
+### Respiratory Health Analysis
+- Respiratory ED visits by city
+- Hospital admissions by city
+- Outpatient visits by city
+- Monthly respiratory ED visits
+- Monthly hospital admissions
+- City with the highest average respiratory ED visits
+
+### AQI and Respiratory Health
+- AQI vs respiratory ED visits
+- AQI vs hospital admissions
+- AQI vs outpatient visits
+- AQI category vs respiratory ED visits
+- AQI category vs hospital admissions
+
+### Pollutant Analysis
+- PM2.5 by city
+- PM10 by city
+- PM2.5 vs respiratory ED visits
+- PM10 vs respiratory hospital admissions
+
+### Additional Analysis
+- AQI exceedance vs respiratory ED visits
+- Population density vs AQI
+- AQI and respiratory ED visits over time
+
+---
+
+## Visualizations
 
 The project uses different graphs according to the type of analysis.
 
-Bar Charts
-
+### Bar Charts
 Used for comparing:
+- Cities
+- Regions
+- AQI categories
+- Respiratory-health indicators
+- PM2.5 and PM10
+- AQI exceedance groups
 
-Cities
-Regions
-AQI categories
-Respiratory-health indicators
-PM2.5 and PM10
-AQI exceedance groups
-Line Charts
-
+### Line Charts
 Used for analyzing:
+- Monthly AQI
+- Monthly respiratory ED visits
+- Monthly hospital admissions
+- AQI and respiratory ED visits over time
 
-Monthly AQI
-Monthly respiratory ED visits
-Monthly hospital admissions
-AQI and respiratory ED visits over time
-Scatter Plots
-
+### Scatter Plots
 Used for analyzing relationships between:
+- AQI and respiratory ED visits
+- AQI and hospital admissions
+- AQI and outpatient visits
+- PM2.5 and respiratory ED visits
+- PM10 and hospital admissions
+- Population density and AQI
 
-AQI and respiratory ED visits
-AQI and hospital admissions
-AQI and outpatient visits
-PM2.5 and respiratory ED visits
-PM10 and hospital admissions
-Population density and AQI
-Key Insights
+---
+
+## Key Insights
 
 The analysis helps identify:
 
-Differences in AQI between cities and regions.
-Changes in AQI across different months.
-Differences in respiratory-health activity between cities.
-Relationships between AQI and respiratory-health indicators.
-Differences in respiratory ED visits during AQI exceedance and non-exceedance observations.
-Relationships between particulate pollutants and respiratory-health indicators.
-Patterns between population density and AQI.
+- Differences in AQI between cities and regions.
+- Changes in AQI across different months.
+- Differences in respiratory-health activity between cities.
+- Relationships between AQI and respiratory-health indicators.
+- Differences in respiratory ED visits during AQI exceedance and non-exceedance observations.
+- Relationships between particulate pollutants and respiratory-health indicators.
+- Patterns between population density and AQI.
 
 These findings represent patterns in the available dataset and should not be treated as direct medical conclusions.
 
-Project Structure
+---
+
+## Project Structure
+
+```
 Air-Quality-Respiratory-Illness-Analysis/
 │
 ├── README.md
@@ -197,31 +214,47 @@ Air-Quality-Respiratory-Illness-Analysis/
 ├── Project_Report.docx
 │
 └── requirements.txt
-How to Run the Project
-Step 1: Install Python
+```
+
+---
+
+## How to Run the Project
+
+### Step 1: Install Python
 
 Install Python on your system.
 
-Step 2: Install Required Libraries
+### Step 2: Install Required Libraries
 
 Run:
 
+```bash
 pip install pandas matplotlib jupyter
-Step 3: Open Jupyter Notebook
+```
+
+### Step 3: Open Jupyter Notebook
 
 Run:
 
+```bash
 jupyter notebook
-Step 4: Open the Notebook
+```
+
+### Step 4: Open the Notebook
 
 Open:
 
+```
 Air_Quality_Respiratory_Analysis.ipynb
-Step 5: Run the Cells
+```
+
+### Step 5: Run the Cells
 
 Run the notebook cells from top to bottom to perform data loading, cleaning, analysis and visualization.
 
-Project Limitations
+---
+
+## Project Limitations
 
 The analysis depends on the available datasets, locations and time period.
 
@@ -229,20 +262,12 @@ The project mainly uses descriptive analysis, comparisons, correlation and visua
 
 Additional data covering more locations, longer time periods and other factors could provide a broader analysis.
 
-Conclusion
+---
+
+## Conclusion
 
 The Air Quality vs Respiratory Illness Trend Comparison project provides a structured analysis of air-quality and respiratory-health data.
 
 By combining the two datasets, performing data cleaning and analysis, and presenting the results through visualizations, the project makes it easier to identify important patterns related to AQI, pollutants and respiratory-health indicators.
 
 The analysis can be useful for understanding the available data and supporting further investigation into air-quality and respiratory-health trends.
-
-
-### `requirements.txt`
-
-Create one more file beside the notebook and put this inside:
-
-```text
-pandas
-matplotlib
-jupyter
