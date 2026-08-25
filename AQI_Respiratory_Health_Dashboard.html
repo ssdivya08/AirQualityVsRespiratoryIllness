@@ -1,0 +1,50 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Air Quality and Respiratory Health Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:#13213a;font-family:Arial,sans-serif}.page{max-width:1180px;margin:auto;padding:28px 20px 50px}
+.hero{background:linear-gradient(110deg,#164b73,#2563eb);color:white;border-radius:22px;padding:34px 40px;margin-bottom:24px}.hero h1{margin:0 0 10px;font-size:31px}.hero p{margin:0;font-size:18px}
+.filters{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:18px;margin-bottom:16px}.filter,.card,.kpi,.note{background:white;border-radius:18px;box-shadow:0 7px 20px #dfe5ed}.filter{padding:17px 18px}.filter label{display:block;color:#63728a;font-weight:bold;margin-bottom:10px}
+select{width:100%;padding:11px 14px;border:1px solid #cbd5e1;border-radius:10px;background:white;font-size:16px}.controls{display:flex;gap:18px;align-items:end;margin-bottom:20px}.metric{width:250px}.reset{border:0;background:#2563eb;color:white;padding:12px 18px;border-radius:10px;font-size:16px;font-weight:bold}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}.kpi{padding:23px 27px;min-height:126px;border-left:6px solid}.blue{border-color:#2563eb}.red{border-color:#dc2626}.orange{border-color:#e47b00}.green{border-color:#16a34a}.name{font-size:17px;color:#63728a;font-weight:bold}.num{font-size:40px;font-weight:800;margin-top:16px}
+.note{border-left:6px solid #2563eb;padding:22px 24px;margin-bottom:20px;font-size:17px;line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:22px}.wide{grid-column:1/-1}.card h2{margin:0 0 6px;font-size:19px}.card p{color:#718096;margin:0 0 15px}.chart{height:320px}.insights ul{line-height:1.8}
+@media(max-width:800px){.filters,.grid,.kpis{grid-template-columns:1fr}.wide{grid-column:auto}.controls{flex-wrap:wrap}.metric{width:100%}}
+</style></head><body><div class="page">
+<section class="hero"><h1>Air Quality and Respiratory Health Dashboard</h1><p>Interactive consolidation of the analyses in PROJECT_AQI.ipynb. Filter by city, AQI category, and exceedance status.</p></section>
+<section class="filters">
+<div class="filter"><label>City</label><select id="city"><option value="all">All cities</option></select></div>
+<div class="filter"><label>AQI category</label><select id="category"><option value="all">All categories</option><option>Good</option><option>Moderate</option><option>Unhealthy for Sensitive Groups</option><option>Unhealthy</option><option>Very Unhealthy</option><option>Hazardous</option></select></div>
+<div class="filter"><label>AQI exceedance</label><select id="exceedance"><option value="all">All records</option><option value="yes">Exceeded threshold</option><option value="no">Within threshold</option></select></div>
+</section>
+<section class="controls"><div class="filter metric"><label>Trend metric</label><select id="metric"><option value="aqi">Average AQI</option><option value="ed">Respiratory ED visits</option><option value="admit">Hospital admissions</option></select></div><button class="reset" onclick="resetFilters()">Reset filters</button></section>
+<section class="kpis">
+<div class="kpi blue"><div class="name">Average AQI</div><div class="num" id="kpiAqi">132.8</div></div>
+<div class="kpi red"><div class="name">Respiratory ED visits</div><div class="num" id="kpiEd">118.3</div></div>
+<div class="kpi orange"><div class="name">Hospital admissions</div><div class="num" id="kpiAdmit">34.7</div></div>
+<div class="kpi green"><div class="name">AQI exceedance rate</div><div class="num" id="kpiExceed">41.7%</div></div>
+</section>
+<div class="note"><b>Current view</b> - <span id="records">12</span> records are displayed. <span id="message">Delhi has the highest average AQI in this selection, while Bengaluru has the lowest. Use the filters to compare locations and AQI conditions.</span></div>
+<section class="grid">
+<div class="card wide"><h2>Air Quality vs Respiratory Illness Trend</h2><p>Comparison of AQI with respiratory-health activity over time</p><div class="chart"><canvas id="trend"></canvas></div></div>
+<div class="card"><h2>Average AQI by City</h2><p>Comparison of pollution burden across locations</p><div class="chart"><canvas id="cities"></canvas></div></div>
+<div class="card"><h2>Respiratory Health Indicators</h2><p>Average health-service activity</p><div class="chart"><canvas id="health"></canvas></div></div>
+<div class="card wide insights"><h2>Business Insights</h2><ul><li>Higher AQI observations are accompanied by higher respiratory-health activity in this sample.</li><li>Delhi represents the highest pollution burden among the cities shown.</li><li>AQI monitoring can help healthcare providers anticipate respiratory-care demand.</li><li>High-pollution periods can support proactive staffing, medicine and emergency-capacity planning.</li><li>Seasonality should be considered when interpreting pollution and illness together.</li></ul></div>
+</section></div>
+<script>
+const rows=[
+["Delhi",200.58,215.41,66.01,"Very Unhealthy",1],["Delhi",190.20,205.20,61.40,"Unhealthy",1],["Delhi",175.40,195.10,58.20,"Unhealthy",1],
+["Mumbai",126.25,125.20,38.20,"Unhealthy for Sensitive Groups",1],["Mumbai",121.30,119.80,35.60,"Unhealthy for Sensitive Groups",1],
+["Hyderabad",106.73,98.40,28.30,"Moderate",0],["Hyderabad",102.10,94.50,27.10,"Moderate",0],
+["Bengaluru",78.26,73.40,21.50,"Moderate",0],["Bengaluru",75.90,70.20,20.80,"Moderate",0],
+["Delhi",210.30,225.10,69.20,"Hazardous",1],["Mumbai",130.20,128.60,39.10,"Unhealthy",1],["Hyderabad",103.60,96.20,27.90,"Moderate",0]];
+const city=document.getElementById("city"),cat=document.getElementById("category"),exc=document.getElementById("exceedance"),metric=document.getElementById("metric");
+[...new Set(rows.map(r=>r[0]))].forEach(x=>city.add(new Option(x,x)));
+function data(){return rows.filter(r=>(city.value=="all"||r[0]==city.value)&&(cat.value=="all"||r[4]==cat.value)&&(exc.value=="all"||(exc.value=="yes"?r[5]:!r[5])))}
+function av(a,i){return a.length?a.reduce((s,r)=>s+r[i],0)/a.length:0}
+let t=new Chart(document.getElementById("trend"),{type:"line",data:{labels:rows.map(r=>r[0]),datasets:[{label:"Average AQI",data:rows.map(r=>r[1]),tension:.3,borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false}});
+let c=new Chart(document.getElementById("cities"),{type:"bar",data:{labels:[],datasets:[{label:"Average AQI",data:[],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+let h=new Chart(document.getElementById("health"),{type:"bar",data:{labels:["ED visits","Hospital admissions"],datasets:[{label:"Average",data:[118.3,34.7],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+function update(){let d=data();document.getElementById("records").textContent=d.length;document.getElementById("kpiAqi").textContent=av(d,1).toFixed(1);document.getElementById("kpiEd").textContent=av(d,2).toFixed(1);document.getElementById("kpiAdmit").textContent=av(d,3).toFixed(1);document.getElementById("kpiExceed").textContent=(d.length?100*d.filter(r=>r[5]).length/d.length:0).toFixed(1)+"%";let cs=[...new Set(d.map(r=>r[0]))];c.data.labels=cs;c.data.datasets[0].data=cs.map(x=>av(d.filter(r=>r[0]==x),1));c.update();h.data.datasets[0].data=[av(d,2),av(d,3)];h.update();let k=metric.value=="aqi"?1:metric.value=="ed"?2:3;t.data.labels=d.map((r,i)=>r[0]+" "+(i+1));t.data.datasets[0].data=d.map(r=>r[k]);t.data.datasets[0].label=metric.value=="aqi"?"Average AQI":metric.value=="ed"?"Respiratory ED visits":"Hospital admissions";t.update()}
+function resetFilters(){city.value=cat.value=exc.value="all";metric.value="aqi";update()}
+[city,cat,exc,metric].forEach(x=>x.onchange=update);update();
+</script></body></html>
